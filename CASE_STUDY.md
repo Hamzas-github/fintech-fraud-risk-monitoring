@@ -1,71 +1,69 @@
 # Case Study: Fintech Fraud and Risk Monitoring
 
-## Executive summary
+## Summary
 
-I built a reproducible fraud-monitoring analytics project for a fintech risk team.
-The pipeline generates realistic transaction data, validates it, loads it into SQLite,
-runs SQL risk analysis, and exports dashboard-ready tables and charts.
+I built this project to show fraud and risk analytics work for fintech data roles.
+The project creates card transaction data, cleans it, saves it in SQLite and then runs
+SQL queries to find risky areas.
 
-The generated dataset contains **65,000 transactions**, **GBP 2.96m** in transaction
-volume, **1,338 fraud transactions**, a **2.06% fraud rate**, and **GBP 73.8k** in
-fraud loss.
+In the current run there are **65,000 transactions**, **GBP 2.96m** transaction volume,
+**1,338 fraud transactions**, **2.06% fraud rate** and **GBP 73.8k** fraud loss.
 
-## Key findings
+## What I found
 
-### 1. Card-not-present is the highest-risk channel
+### 1. Card not present was most risky
 
-Card-not-present transactions have the highest fraud rate at **2.84%**, compared with
-**1.80%** for mobile wallet and **1.47%** for card-present transactions.
+Card not present transactions had **2.84%** fraud rate. Mobile wallet had **1.80%**
+and card present had **1.47%**.
 
-This is the first operational dashboard slice I would show a risk team because it
-separates customer behaviour that needs stronger monitoring from lower-risk everyday
-spend.
+This means card not present transactions should have more monitoring, especially when
+the amount is high or the transaction is cross border.
 
-### 2. Crypto, electronics, and travel drive the risk story
+### 2. Some merchant groups had more fraud
 
-Crypto has the highest fraud rate among merchant categories at **5.34%**. Electronics
-and travel also create material fraud losses because their average transaction values
-are higher.
+Crypto had the highest fraud rate in this data at **5.34%**.
 
-The practical recommendation is not to block these categories, but to monitor them
-with tighter thresholds when transactions are high-value, cross-border, or unusually
-high-velocity.
+Cash withdrawal, gaming, electronics and travel was also important because they had
+either higher fraud rate or higher fraud loss.
 
-### 3. A merchant investigation queue is more useful than a static dashboard
+### 3. The project gives an investigation list
 
-The SQL output ranks merchants by fraud loss and fraud rate. The highest-loss merchant
-in the generated data is `M00616`, a crypto merchant with **72 transactions**, **7
-fraud transactions**, a **9.72% fraud rate**, and **GBP 1.3k** fraud loss.
+The SQL output ranks merchants by fraud loss and fraud rate. This is useful because
+the risk team can start with the merchants causing the most loss.
 
-That turns the analysis into an operational queue: risk teams can decide who to
-investigate first instead of scanning a broad report.
+The highest loss merchant in the generated data was `M00616`. It was a crypto merchant
+with **72 transactions**, **7 fraud transactions**, **9.72% fraud rate** and around
+**GBP 1.3k** fraud loss.
 
-### 4. Data quality is part of the risk control
+### 4. Data quality is also checked
 
-The build includes checks for duplicate transaction IDs, missing required fields,
-non-positive amounts, and invalid fraud labels. All checks pass in the generated
-dataset.
+The project checks duplicate transaction IDs, missing values, wrong amounts and wrong
+fraud labels. All checks passed in the generated data.
 
-For a regulated environment, this matters because a fraud dashboard is only useful if
-the underlying monitoring data is trusted and auditable.
+This is important because if data quality is bad then the fraud dashboard is not really
+useful.
 
-## Skills demonstrated
+## Tools used
 
-- Python data generation, cleaning, validation, and feature engineering.
-- SQL grouped analysis, window functions, and investigation-ranking queries.
-- SQLite warehouse build for reproducible local analytics.
-- Dashboard-ready CSV exports for Power BI, Tableau, or Looker.
-- Risk-domain metrics: fraud rate, fraud loss, alert rate, velocity flags, merchant
-  risk, and channel risk.
-- Clear stakeholder communication for a fintech risk audience.
+- Python
+- pandas
+- NumPy
+- SQLite
+- SQL
+- Matplotlib
+- Seaborn
 
-## Hiring-market fit
+## Why this project is useful for my portfolio
 
-This project is designed for London data roles that mention:
+This project matches the type of things I saw in London data jobs:
 
-- SQL and Python/R.
-- Power BI, Tableau, or Looker.
-- dbt-style modelling, data-quality checks, and cloud warehouse thinking.
-- Fraud, financial crime, risk, compliance, or regulated reporting.
-- Stakeholder-facing insight and operational dashboards.
+- SQL and Python
+- risk analytics
+- data quality checks
+- dashboard outputs
+- fraud and transaction monitoring
+- explaining findings in simple words
+
+It is not only charts. It also has data cleaning, SQL, database work and business
+thinking.
 

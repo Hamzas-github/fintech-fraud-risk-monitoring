@@ -1,7 +1,3 @@
--- Fintech Fraud and Risk Monitoring
--- These queries are also executed by scripts/build_project.py and exported to CSV.
-
--- 1. Portfolio-level risk summary
 select
   count(*) as transactions,
   round(sum(amount_gbp), 2) as total_volume_gbp,
@@ -10,7 +6,6 @@ select
   round(sum(case when is_fraud = 1 then amount_gbp else 0 end), 2) as fraud_loss_gbp
 from transactions_clean;
 
--- 2. Monthly fraud trend
 select
   strftime('%Y-%m', transaction_ts) as month,
   count(*) as transactions,
@@ -21,7 +16,6 @@ from transactions_clean
 group by 1
 order by 1;
 
--- 3. Fraud by channel
 select
   channel,
   count(*) as transactions,
@@ -32,7 +26,6 @@ from transactions_clean
 group by 1
 order by fraud_rate_pct desc;
 
--- 4. Merchant category risk
 select
   merchant_category,
   count(*) as transactions,
@@ -44,7 +37,6 @@ group by 1
 having transactions >= 250
 order by fraud_rate_pct desc, fraud_loss_gbp desc;
 
--- 5. High-risk merchants for investigation
 with merchant_risk as (
   select
     merchant_id,
@@ -69,7 +61,6 @@ where transactions >= 40
 order by fraud_loss_gbp desc
 limit 20;
 
--- 6. High-risk customers for investigation
 with customer_risk as (
   select
     customer_id,

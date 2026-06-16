@@ -20,12 +20,12 @@ CLEAN_FILE = PROCESSED_DIR / "transactions_clean.csv"
 DB_FILE = DB_DIR / "fintech_fraud.db"
 
 
-def ensure_dirs() -> None:
+def ensure_dirs():
     for path in [RAW_DIR, PROCESSED_DIR, DB_DIR, OUTPUT_DIR]:
         path.mkdir(parents=True, exist_ok=True)
 
 
-def generate_raw_transactions(rows: int = 65_000, seed: int = 42) -> pd.DataFrame:
+def generate_raw_transactions(rows=65_000, seed=42):
     rng = np.random.default_rng(seed)
 
     customer_ids = [f"C{n:06d}" for n in range(1, 8_501)]
@@ -134,7 +134,7 @@ def generate_raw_transactions(rows: int = 65_000, seed: int = 42) -> pd.DataFram
     return df
 
 
-def clean_and_validate(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+def clean_and_validate(df):
     clean = df.copy()
     clean["transaction_ts"] = pd.to_datetime(clean["transaction_ts"], errors="coerce")
     clean["amount_gbp"] = pd.to_numeric(clean["amount_gbp"], errors="coerce")
@@ -181,7 +181,7 @@ def clean_and_validate(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return clean, quality
 
 
-def write_database(clean: pd.DataFrame, quality: pd.DataFrame) -> None:
+def write_database(clean, quality):
     if DB_FILE.exists():
         DB_FILE.unlink()
 
@@ -190,13 +190,13 @@ def write_database(clean: pd.DataFrame, quality: pd.DataFrame) -> None:
         quality.to_sql("data_quality_checks", conn, index=False, if_exists="replace")
 
 
-def export_query(conn: sqlite3.Connection, name: str, query: str) -> pd.DataFrame:
+def export_query(conn, name, query):
     result = pd.read_sql_query(query, conn)
     result.to_csv(OUTPUT_DIR / f"{name}.csv", index=False)
     return result
 
 
-def run_sql_outputs() -> dict[str, pd.DataFrame]:
+def run_sql_outputs():
     queries = {
         "summary_metrics": """
             select
@@ -299,7 +299,7 @@ def run_sql_outputs() -> dict[str, pd.DataFrame]:
         return {name: export_query(conn, name, query) for name, query in queries.items()}
 
 
-def save_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, filename: str) -> None:
+def save_bar_chart(df, x, y, title, filename):
     plt.figure(figsize=(10, 5.5))
     sns.barplot(data=df, x=x, y=y, color="#2f6f73")
     plt.title(title, fontsize=14, weight="bold")
@@ -312,7 +312,7 @@ def save_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, filename: str) 
     plt.close()
 
 
-def build_charts(outputs: dict[str, pd.DataFrame]) -> None:
+def build_charts(outputs):
     sns.set_theme(style="whitegrid")
 
     trend = outputs["monthly_fraud_trend"]
@@ -356,7 +356,7 @@ def build_charts(outputs: dict[str, pd.DataFrame]) -> None:
         plt.close()
 
 
-def main() -> None:
+def main():
     ensure_dirs()
     raw = generate_raw_transactions()
     raw.to_csv(RAW_FILE, index=False)

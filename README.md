@@ -1,82 +1,67 @@
 # Fintech Fraud and Risk Monitoring
 
-An end-to-end analytics project built for London fintech data roles. It creates a
-realistic card-transaction dataset, validates it, loads it into SQLite, runs SQL risk
-analysis, and exports dashboard-ready charts and summary tables.
+I made this project because I am targeting data jobs in London, mainly data analyst,
+risk analyst and fintech type roles.
 
-## Why this project
+This project is about fraud monitoring in card transactions. It makes fake but realistic
+transaction data, cleans it with Python, puts it in SQLite, runs SQL queries, and makes
+outputs that can be used in Power BI or any dashboard tool.
 
-Current London data roles are asking for more than basic dashboards. The strongest
-signals from live postings are:
+## Why I made this
 
-- SQL and Python for analysis beyond spreadsheets.
-- BI storytelling in Power BI, Tableau, or Looker.
-- dbt-style data modelling, data-quality checks, and documented pipelines.
-- Fintech/risk context: fraud, financial crime, transaction monitoring, auditability,
-  and regulated reporting.
+When I was looking at London data jobs, many of them was asking for these skills:
 
-This project targets that intersection.
+- SQL
+- Python
+- Power BI or Looker
+- data quality checks
+- fraud or risk analytics
+- clear explanation of findings
 
-## Business question
+So I made this project to show these things in one place.
 
-How can a fintech risk team identify the customer, merchant, channel, and timing
-patterns most associated with fraudulent transactions, and turn those signals into an
-operational monitoring dashboard?
+## Main question
 
-## What the pipeline builds
+The question I am answering is:
+
+Which transactions, customers, channels and merchant types look more risky for fraud?
+
+## What this project does
 
 ```text
-synthetic raw transactions
-  -> Python validation and feature engineering
-  -> SQLite analytics database
-  -> SQL risk queries
-  -> dashboard-ready CSV outputs
-  -> charts for portfolio case study
+make raw transaction data
+clean it with Python
+create risk features
+load it into SQLite
+run SQL analysis
+export CSV files and charts
 ```
 
-## Project structure
+## Folder structure
 
 ```text
 fintech-fraud-risk-monitoring/
   README.md
+  CASE_STUDY.md
   requirements.txt
   scripts/
     build_project.py
   sql/
     risk_analysis_queries.sql
-  data/
-    raw/                 generated locally
-    processed/           generated locally
-  database/              generated locally
-  outputs/               generated charts and CSVs
+  outputs/
+    generated CSV files and charts
 ```
 
-## How to run
+## How to run it
 
 ```powershell
-cd "C:\Users\hamza\OneDrive\Documents\Portfolio 2\fintech-fraud-risk-monitoring"
+cd "C:\Users\hamza\OneDrive\Documents\fintech-fraud-risk-monitoring"
 python scripts\build_project.py
 ```
 
-The script creates all generated data, database tables, outputs, and charts from
-scratch.
+The script will create the data, database, CSV outputs and charts again from start.
 
-## Outputs
-
-After running the project:
-
-- `data/raw/transactions_raw.csv`
-- `data/processed/transactions_clean.csv`
-- `database/fintech_fraud.db`
-- `outputs/summary_metrics.csv`
-- `outputs/monthly_fraud_trend.csv`
-- `outputs/fraud_by_channel.csv`
-- `outputs/fraud_by_merchant_category.csv`
-- `outputs/high_risk_merchants.csv`
-- `outputs/high_risk_customers.csv`
-- `outputs/*.png` charts
-
-## Current generated results
+## Results from current run
 
 | Metric | Value |
 |---|---:|
@@ -87,45 +72,41 @@ After running the project:
 | Fraud loss | GBP 73.8k |
 | Alert rate | 4.42% |
 
-Read the narrative findings in [`CASE_STUDY.md`](CASE_STUDY.md).
+## Main outputs
 
-## Key metrics generated
+- `outputs/summary_metrics.csv`
+- `outputs/monthly_fraud_trend.csv`
+- `outputs/fraud_by_channel.csv`
+- `outputs/fraud_by_merchant_category.csv`
+- `outputs/high_risk_merchants.csv`
+- `outputs/high_risk_customers.csv`
+- chart images in `outputs/`
 
-The synthetic dataset is designed to behave like a realistic monitoring dataset:
+## What I found
 
-- Tens of thousands of transactions.
-- Fraud concentrated in card-not-present, night-time, high-risk merchant categories,
-  and high-velocity customer behaviour.
-- A small group of merchants and customers responsible for a disproportionate share
-  of fraud losses.
-- Data-quality checks for duplicate IDs, missing values, invalid amounts, and invalid
-  timestamps.
+Card not present transactions had the highest fraud rate.
 
-## Skills demonstrated
+Crypto, cash withdrawal, gaming, electronics and travel was the most risky merchant
+groups in this data.
 
-| Area | Evidence in the project |
-|---|---|
-| Python analytics | Data generation, cleaning, validation, feature engineering, charting |
-| SQL | Window functions, grouped risk metrics, operational investigation queries |
-| BI thinking | Dashboard-ready CSVs and charts by KPI, segment, and investigation priority |
-| Data modelling | Clean transaction table plus risk-feature columns and metric outputs |
-| Risk domain | Fraud rate, fraud loss, merchant risk, customer velocity, channel risk |
-| Communication | README and outputs framed around a risk-team decision |
+The project also makes a merchant investigation list, so a risk team can see which
+merchant should be checked first.
 
-## Recommended dashboard pages
+## Skills shown
 
-1. **Executive risk overview:** fraud rate, fraud loss, transaction volume, alert rate.
-2. **Channel and timing:** fraud by card-present/card-not-present, hour, weekend.
-3. **Merchant monitoring:** merchant categories and individual merchants ranked by
-   fraud rate and loss.
-4. **Customer investigation queue:** high-risk customers with velocity, loss, and
-   fraud count.
-5. **Data quality:** validation pass/fail checks and missingness.
+- Python data cleaning
+- pandas feature engineering
+- SQL analysis
+- SQLite database
+- fraud rate and fraud loss metrics
+- data quality checks
+- dashboard ready CSV outputs
+- simple business explanation
 
-## Next improvements
+## What I would add next
 
-- Rebuild the SQL transformations in dbt with tests and docs.
-- Add a Power BI dashboard using the generated CSV outputs.
-- Add a simple risk-scoring model and compare it with rules-based flags.
-- Package this as a separate GitHub repo, then add the finished case study to the
-  portfolio site.
+- make a Power BI dashboard from the outputs
+- add dbt models and tests
+- add a simple fraud scoring model
+- compare rules based alerts with model based alerts
+
