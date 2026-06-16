@@ -1,0 +1,4 @@
+channel,transactions,fraud_transactions,fraud_rate_pct,fraud_loss_gbp
+card_not_present,25701,730,2.84,40463.56
+mobile_wallet,9168,165,1.8,8459.06
+card_present,30131,443,1.47,24832.01

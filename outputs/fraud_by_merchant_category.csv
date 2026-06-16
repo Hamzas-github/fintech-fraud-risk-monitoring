@@ -1,0 +1,11 @@
+merchant_category,transactions,fraud_transactions,fraud_rate_pct,fraud_loss_gbp
+crypto,2585,126,4.87,15011.24
+cash_withdrawal,2640,97,3.67,6336.92
+gaming,5176,172,3.32,6304.37
+electronics,6692,178,2.66,16357.97
+travel,5179,101,1.95,10700.35
+fashion,7666,140,1.83,5506.3
+subscriptions,5272,95,1.8,1991.22
+transport,7849,116,1.48,1772.06
+groceries,11645,166,1.43,4893.88
+restaurants,10296,147,1.43,4880.32
