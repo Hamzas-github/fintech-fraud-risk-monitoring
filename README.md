@@ -1,67 +1,28 @@
 # Fintech Fraud and Risk Monitoring
 
-I made this project because I am targeting data jobs in London, mainly data analyst,
-risk analyst and fintech type roles.
+An end-to-end fraud analytics project built around 65,000 synthetic card transactions. The pipeline validates and cleans the data with Python, creates risk features, loads the result into SQLite, runs SQL investigations, and exports dashboard-ready metrics.
 
-This project is about fraud monitoring in card transactions. It makes fake but realistic
-transaction data, cleans it with Python, puts it in SQLite, runs SQL queries, and makes
-outputs that can be used in Power BI or any dashboard tool.
+The central question is simple: which transactions, customers, channels, merchants, and categories carry the most fraud risk?
 
-## Why I made this
-
-When I was looking at London data jobs, many of them was asking for these skills:
-
-- SQL
-- Python
-- Power BI or Looker
-- data quality checks
-- fraud or risk analytics
-- clear explanation of findings
-
-So I made this project to show these things in one place.
-
-## Main question
-
-The question I am answering is:
-
-Which transactions, customers, channels and merchant types look more risky for fraud?
-
-## What this project does
+## Workflow
 
 ```text
-make raw transaction data
-clean it with Python
-create risk features
-load it into SQLite
-run SQL analysis
-export CSV files and charts
+Generate transactions -> validate and clean -> engineer risk features
+-> load SQLite -> run SQL analysis -> export CSVs and charts
 ```
 
-## Folder structure
+## Run locally
 
-```text
-fintech-fraud-risk-monitoring/
-  README.md
-  CASE_STUDY.md
-  requirements.txt
-  scripts/
-    build_project.py
-  sql/
-    risk_analysis_queries.sql
-  outputs/
-    generated CSV files and charts
+```bash
+git clone https://github.com/Hamzas-github/fintech-fraud-risk-monitoring.git
+cd fintech-fraud-risk-monitoring
+pip install -r requirements.txt
+python scripts/build_project.py
 ```
 
-## How to run it
+The script rebuilds the dataset, SQLite database, CSV outputs, and charts from scratch.
 
-```powershell
-cd "C:\Users\hamza\OneDrive\Documents\fintech-fraud-risk-monitoring"
-python scripts\build_project.py
-```
-
-The script will create the data, database, CSV outputs and charts again from start.
-
-## Results from current run
+## Results from the current run
 
 | Metric | Value |
 |---|---:|
@@ -72,7 +33,7 @@ The script will create the data, database, CSV outputs and charts again from sta
 | Fraud loss | GBP 73.8k |
 | Alert rate | 4.42% |
 
-## Main outputs
+## Outputs
 
 - `outputs/summary_metrics.csv`
 - `outputs/monthly_fraud_trend.csv`
@@ -80,33 +41,16 @@ The script will create the data, database, CSV outputs and charts again from sta
 - `outputs/fraud_by_merchant_category.csv`
 - `outputs/high_risk_merchants.csv`
 - `outputs/high_risk_customers.csv`
-- chart images in `outputs/`
+- Chart images in `outputs/`
 
-## What I found
+## Findings
 
-Card not present transactions had the highest fraud rate.
+- Card-not-present transactions produced the highest fraud rate.
+- Crypto, cash withdrawal, gaming, electronics, and travel were the riskiest merchant groups.
+- The pipeline creates ranked customer and merchant investigation queues for review.
 
-Crypto, cash withdrawal, gaming, electronics and travel was the most risky merchant
-groups in this data.
+See [CASE_STUDY.md](CASE_STUDY.md) for the analysis and business recommendations.
 
-The project also makes a merchant investigation list, so a risk team can see which
-merchant should be checked first.
+## Skills demonstrated
 
-## Skills shown
-
-- Python data cleaning
-- pandas feature engineering
-- SQL analysis
-- SQLite database
-- fraud rate and fraud loss metrics
-- data quality checks
-- dashboard ready CSV outputs
-- simple business explanation
-
-## What I would add next
-
-- make a Power BI dashboard from the outputs
-- add dbt models and tests
-- add a simple fraud scoring model
-- compare rules based alerts with model based alerts
-
+Python, pandas, SQL, SQLite, feature engineering, data-quality checks, fraud KPIs, risk segmentation, investigation queues, and dashboard-ready reporting.
